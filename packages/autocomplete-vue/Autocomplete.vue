@@ -24,6 +24,7 @@
           v-bind="resultListProps"
           v-on="resultListListeners"
         >
+          <div>请用鼠标或键盘上的上下箭头在下拉框中选择</div>
           <template v-for="(result, index) in results">
             <slot name="result" :result="result" :props="resultProps[index]">
               <li :key="resultProps[index].id" v-bind="resultProps[index]">
