@@ -18,7 +18,7 @@
           @focus="core.handleFocus"
           @blur="core.handleBlur"
           v-on="$listeners"
-        />
+        /><button v-on:click="handleButtonClick">确认</button>
         <ul
           ref="resultList"
           v-bind="resultListProps"
@@ -112,6 +112,11 @@ export default {
         'data-expanded': this.expanded,
         'data-loading': this.loading,
         'data-position': this.position,
+      }
+    },
+    buttonProps() {
+      return {
+        class: `${this.baseClass}-button`,
       }
     },
     inputProps() {
@@ -228,6 +233,12 @@ export default {
     handleInput(event) {
       this.value = event.target.value
       this.core.handleInput(event)
+    },
+
+    handleButtonClick(event) {
+      const selectedResult = this.core.results[this.core.selectedIndex]
+      this.core.selectResult()
+      this.$emit('submit', selectedResult)
     },
 
     handleSubmit(selectedResult) {
