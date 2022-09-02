@@ -72,9 +72,10 @@ class AutocompleteCore {
         break
       }
       case 'Enter': {
+        const selected = this.selectedIndex
         const selectedResult = this.results[this.selectedIndex]
         this.selectResult()
-        this.onSubmit(selectedResult)
+        this.onSubmit(selectedResult, selected)
         break
       }
       case 'Esc': // IE/Edge
@@ -111,8 +112,9 @@ class AutocompleteCore {
     if (result) {
       this.selectedIndex = parseInt(result.dataset.resultIndex, 10)
       const selectedResult = this.results[this.selectedIndex]
+      const selected = this.selectedIndex
       this.selectResult()
-      this.onSubmit(selectedResult)
+      this.onSubmit(selectedResult, selected)
     }
   }
 

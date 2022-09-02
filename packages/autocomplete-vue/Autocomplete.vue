@@ -18,7 +18,7 @@
           @focus="core.handleFocus"
           @blur="core.handleBlur"
           v-on="$listeners"
-        /><button v-on:click="handleButtonClick">确认</button>
+        /><button @click="handleButtonClick">确认</button>
         <ul
           ref="resultList"
           v-bind="resultListProps"
@@ -28,7 +28,7 @@
           <template v-for="(result, index) in results">
             <slot name="result" :result="result" :props="resultProps[index]">
               <li :key="resultProps[index].id" v-bind="resultProps[index]">
-                {{ getResultValue(result) }}
+                {{ getResultValue(result, index) }}
               </li>
             </slot>
           </template>
@@ -63,7 +63,9 @@ export default {
     },
     getResultValue: {
       type: Function,
-      default: result => result,
+      default(result, index) {
+        return result
+      },
     },
     defaultValue: {
       type: String,
@@ -236,13 +238,14 @@ export default {
     },
 
     handleButtonClick(event) {
+      const selected = this.core.selectedIndex
       const selectedResult = this.core.results[this.core.selectedIndex]
       this.core.selectResult()
-      this.$emit('submit', selectedResult)
+      this.$emit('submit', selectedResult, selected)
     },
 
-    handleSubmit(selectedResult) {
-      this.$emit('submit', selectedResult)
+    handleSubmit(selectedResult, index) {
+      this.$emit('submit', selectedResult, index)
     },
 
     handleDocumentClick(event) {
