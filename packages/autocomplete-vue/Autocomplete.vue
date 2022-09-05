@@ -18,7 +18,7 @@
           @focus="core.handleFocus"
           @blur="core.handleBlur"
           v-on="$listeners"
-          style="padding-right: 50px;"/><button @click="handleButtonClick">确认</button>
+          style="padding-right: 80px;"/><button @click="handleButtonClick">确认</button>
         <ul
           ref="resultList"
           v-bind="resultListProps"
